@@ -1,18 +1,18 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class Login extends JFrame {
-    public Container panelHistorial;
-    JPanel panelLogin;
+
+    public JPanel panelLogin;
     private JLabel Apellido;
     private JLabel pass;
     private JTextField textField1;
     private JPasswordField passwordField1;
     private JButton ingresarButton;
     private JButton crearUsuarioButton;
+    private JButton regresarButton;
     Connection conexion;
     Statement st;
     ResultSet rs;
@@ -20,18 +20,24 @@ public class Login extends JFrame {
 
     public Login() {
 
-
         ingresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 validarUsuario();
             }
         });
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Regresar();
+                dispose();
+            }
+        });
     }
 
     void conectar() {
         try {
-            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ProyectoIntegrador", "root", "Juan1107842292");
+            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/PeluqueriaAC", "root", "Juan1107842292");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,11 +78,17 @@ public class Login extends JFrame {
         login1.pack();
     }
 
+    public void Regresar (){
+        Inicio enlace = new Inicio();
+        enlace.mostrarInicio();
+    }
+
+
 
     public void mostrarLogin (){
         {
-            Inicio inicio2 = new Inicio();
-            inicio2.setContentPane(new Inicio().panelLogin);
+            Login inicio2 = new Login();
+            inicio2.setContentPane(inicio2.panelLogin);
             inicio2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             inicio2.setVisible(true);
             inicio2.pack();
